@@ -1,0 +1,11 @@
+{
+  "name": "task-manager",
+  "version": "0.0.1",
+  "description": "task manager app from Udemy course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Knotts",
+  "license": "ISC"
+}
