@@ -17,16 +17,7 @@ MongoClient.connect(
     const db = client.db(databaseName);
 
     // db.collection('users')
-    //   .updateOne(
-    //     {
-    //       _id: new ObjectID('5d9c9b8597b24237dfd58943')
-    //     },
-    //     {
-    //       $inc: {
-    //         age: 1
-    //       }
-    //     }
-    //   )
+    //   .deleteMany({ age: 44 })
     //   .then(result => {
     //     console.log(result);
     //   })
@@ -35,12 +26,8 @@ MongoClient.connect(
     //   });
 
     db.collection('tasks')
-      .updateMany({ completed: false }, { $set: { completed: true } })
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      .deleteOne({ description: 'fix door trim' })
+      .then(result => console.log(result))
+      .catch(error => console.log(error));
   }
 );
