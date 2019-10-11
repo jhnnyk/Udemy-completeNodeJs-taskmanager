@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
   useNewUrlParser: true,
@@ -7,10 +8,29 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
 
 const User = mongoose.model('User', {
   name: {
-    type: String
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error('Email is invalid');
+      }
+    }
   },
   age: {
-    type: Number
+    type: Number,
+    default: 0,
+    validate(value) {
+      if (value < 0) {
+        throw new Error('Age must be a positive number');
+      }
+    }
   }
 });
 
@@ -23,23 +43,23 @@ const Task = mongoose.model('Task', {
   }
 });
 
-// const me = new User({
-//   name: 'John',
-//   age: 43
-// });
-
-// me.save()
-//   .then(() => {
-//     console.log(me);
-//   })
-//   .catch(error => console.log('Error!', error));
-
-const errand = new Task({
-  description: 'buy doorknob',
-  completed: false
+const me = new User({
+  name: '  John  ',
+  email: 'MyEmail@EMAIL.com   '
 });
 
-errand
-  .save()
-  .then(console.log(errand))
-  .catch(error => console.log(error));
+me.save()
+  .then(() => {
+    console.log(me);
+  })
+  .catch(error => console.log('Error!', error));
+
+// const errand = new Task({
+//   description: 'buy doorknob',
+//   completed: false
+// });
+
+// errand
+//   .save()
+//   .then(console.log(errand))
+//   .catch(error => console.log(error));
