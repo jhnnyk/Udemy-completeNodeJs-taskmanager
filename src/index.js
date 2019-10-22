@@ -14,9 +14,9 @@ const port = process.env.PORT || 3000;
 //   }
 // });
 
-app.use((req, res, next) => {
-  res.status(503).send('The site is currently unavailable.');
-});
+// app.use((req, res, next) => {
+//   res.status(503).send('The site is currently unavailable.');
+// });
 
 app.use(express.json());
 app.use(userRouter);
